@@ -2,8 +2,6 @@
 
 # 🏗️ Arquitectura de Microservicios - Sistema de Gestión de Pedidos
 
-
-
 ## Autor
 **Alejandro De Mendoza**
 
