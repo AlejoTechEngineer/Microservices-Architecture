@@ -1,17 +1,16 @@
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Docker Hub](https://img.shields.io/badge/Docker%20Hub-alejotecheng-blue?style=for-the-badge&logo=docker)
-![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)
-![Flask](https://img.shields.io/badge/Flask-3.0-green?style=for-the-badge&logo=flask)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?style=for-the-badge&logo=postgresql)
-![MongoDB](https://img.shields.io/badge/MongoDB-7-green?style=for-the-badge&logo=mongodb)
-![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)
+<div align="center">
 
 # 🏗️ Arquitectura de Microservicios - Sistema de Gestión de Pedidos
 
 
 
 ## Autor
-**Alejandro De Mendoza**  
+**Alejandro De Mendoza**
+
+</div>
+
+---
+
 Ingeniero Informático - Especialista en Inteligencia Artificial  
 alejandro.mendoza.techengineer@gmail.com  
 +57 311 2687118  
@@ -862,3 +861,12 @@ Desarrollado con dedicación para demostrar capacidades en:
 **Última actualización**: 16 de Enero de 2026  
 **Versión**: 1.0.0  
 **Estado**: Completado y funcional
+
+---
+
+## Autor
+
+**Alejandro De Mendoza**  
+Ingeniero Informático · Especialista en IA · Especialista en Ingeniería de Software · Máster en Arquitectura de Software
+
+[![GitHub](https://img.shields.io/badge/GitHub-AlejoTechEngineer-181717?style=for-the-badge&logo=github)](https://github.com/AlejoTechEngineer)
