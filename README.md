@@ -38,103 +38,19 @@ Sistema de gestión de pedidos en línea basado en arquitectura de microservicio
 
 ## Arquitectura
 
-### Diagrama de Arquitectura
-
+```mermaid
+flowchart TD
+    A[Cliente Web/Mobile] --> B[frontend/ - React + Vite]
+    B --> C[api-gateway/ :5000 Flask]
+    C --> D[user-service/ :5001 Flask]
+    C --> E[order-service/ :5002 Flask]
+    C --> F[payment-service/ :5003 Flask]
+    D --> G[(PostgreSQL Users DB :5432)]
+    E --> H[(MongoDB Orders DB :27017)]
+    F --> I[(PostgreSQL Payments DB :5433)]
+    D & E & F --> J[RabbitMQ - Event Bus :5672]
+    K[docker-compose.yml] --> C & D & E & F
 ```
-┌─────────────────────────────────────────────────────┐
-│                   Cliente Web/Mobile                 │
-└──────────────────────┬──────────────────────────────┘
-                       │ HTTP/REST
-┌──────────────────────▼──────────────────────────────┐
-│                   API Gateway                        │
-│            (Puerto 5000 - Flask)                     │
-│  • Enrutamiento                                      │
-│  • Rate limiting                                     │
-│  • Autenticación básica                             │
-└──────────┬──────────────┬──────────────┬────────────┘
-           │              │              │
-    ┌──────▼─────┐ ┌─────▼──────┐ ┌────▼───────┐
-    │   User     │ │   Order    │ │  Payment   │
-    │  Service   │ │  Service   │ │  Service   │
-    │ Puerto     │ │ Puerto     │ │ Puerto     │
-    │  5001      │ │  5002      │ │  5003      │
-    └──────┬─────┘ └─────┬──────┘ └────┬───────┘
-           │              │              │
-    ┌──────▼─────┐ ┌─────▼──────┐ ┌────▼───────┐
-    │ PostgreSQL │ │  MongoDB   │ │ PostgreSQL │
-    │  Users DB  │ │ Orders DB  │ │Payments DB │
-    │   :5432    │ │  :27017    │ │   :5433    │
-    └────────────┘ └────────────┘ └────────────┘
-           │              │              │
-           └──────────────┴──────────────┘
-                      │
-              ┌───────▼────────┐
-              │   RabbitMQ     │
-              │  (Event Bus)   │
-              │ :5672 / :15672 │
-              └────────────────┘
-```
-
-### Microservicios Implementados:
-
-#### 1. **API Gateway** (Puerto 5000)
-- **Tecnología**: Python/Flask
-- **Responsabilidad**: Punto de entrada único para todas las peticiones
-- **Funciones**:
-  - Enrutamiento inteligente a microservicios
-  - Rate limiting
-  - Autenticación básica
-  - Health checks agregados
-  - Manejo centralizado de errores
-
-#### 2. **User Service** (Puerto 5001)
-- **Tecnología**: Python/Flask + PostgreSQL
-- **Responsabilidad**: Gestión completa del ciclo de vida de usuarios
-- **Funciones**:
-  - Registro y autenticación
-  - Gestión de perfiles
-  - Control de sesiones
-  - CRUD de usuarios
-- **Base de datos**: PostgreSQL (ACID, integridad referencial)
-
-#### 3. **Order Service** (Puerto 5002)
-- **Tecnología**: Python/Flask + MongoDB
-- **Responsabilidad**: Gestión de pedidos y estados
-- **Funciones**:
-  - Creación de pedidos
-  - Seguimiento de estados (pending, paid, shipped, delivered)
-  - Consulta de historial
-  - Actualización de pedidos
-- **Base de datos**: MongoDB (esquema flexible, escalabilidad horizontal)
-
-#### 4. **Payment Service** (Puerto 5003)
-- **Tecnología**: Python/Flask + PostgreSQL
-- **Responsabilidad**: Procesamiento de transacciones financieras
-- **Funciones**:
-  - Procesamiento de pagos
-  - Gestión de transacciones
-  - Reembolsos
-  - Auditoría financiera
-- **Base de datos**: PostgreSQL (ACID crítico, consistencia fuerte)
-
-### Comunicación entre Servicios:
-
-#### **Síncrona (REST APIs)**
-- Cliente → API Gateway → Microservicios
-- Formato: JSON
-- Protocolo: HTTP/HTTPS
-- Casos de uso: Operaciones CRUD, consultas inmediatas
-
-#### **Asíncrona (RabbitMQ)**
-- Eventos de negocio entre microservicios
-- Patrones: Pub/Sub
-- Casos de uso:
-  - `OrderCreated` → Payment Service procesa pago
-  - `PaymentCompleted` → Order Service actualiza estado
-  - `PaymentFailed` → Order Service marca como fallido
-  - `OrderCancelled` → Payment Service ejecuta refund
-
----
 
 ## Bases de Datos
 
